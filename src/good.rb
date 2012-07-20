@@ -12,11 +12,15 @@ class Good
 	end
 
 	def name
-		GoodParser.parse_name(@description)
+		GoodParser.parse_good(@description)["name"]
 	end
 
 	def price
-		GoodParser.parse_price(@description)
+		GoodParser.parse_good(@description)["price"]
+	end
+
+	def count
+		GoodParser.parse_good(@description)["count"]
 	end
 
 	def is_imported
