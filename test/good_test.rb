@@ -1,5 +1,4 @@
 require "../src/good"
-require "../src/good_parser"
 require "test/unit"
 
 class GoodTest < Test::Unit::TestCase

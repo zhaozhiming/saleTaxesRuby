@@ -2,6 +2,7 @@
 class Good
 	attr_accessor :description
 
+	GoodParseRegex = /(\d+)\s((\w+\s)+)at\s(\d+(.\d+)?)/
 	ExemptionGoods = Array["book", "chocolate", "pill"]
 	TaxNeastUnit = 0.05
 	ImportedTaxFactor = 0.05
@@ -12,15 +13,15 @@ class Good
 	end
 
 	def name
-		GoodParser.parse_good(@description)["name"]
+		parse["name"]
 	end
 
 	def price
-		GoodParser.parse_good(@description)["price"]
+		parse["price"]
 	end
 
 	def count
-		GoodParser.parse_good(@description)["count"]
+		parse["count"]
 	end
 
 	def is_imported
@@ -48,5 +49,15 @@ class Good
 	def price_after_tax
 		(price + tax).round(2)
 	end
+
+	private 
+		def parse
+			@description.match(GoodParseRegex)
+			{
+				"name" => $2.rstrip,
+				"price" => $4.to_f,
+				"count" => $1.to_i
+			}
+		end
 
 end
